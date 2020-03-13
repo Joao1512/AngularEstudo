@@ -1,0 +1,15 @@
+<body>
+    <h5>Exemplos de Pipes</h5>
+    <ul>
+        <li *ngFor="let liv of livro | filtroArray">
+            <p>Título: {{ liv.titulo | camelCase }}</p>
+            <p>Estrelas: {{ liv.rating | number:'1.2-2' }}</p>
+            <p>Páginas: {{ liv.numeroPaginas | number }}</p>
+            <p>Preço: {{ liv.preco | currency:'USD':true }}</p>
+            <p>Data Lançamento: {{ liv.dataLancamento | date:'dd-MMM-yyyy' }}</p>
+            <p>Url: {{ liv.url }}</p>
+            <br>
+            <p>Livro: {{ liv | json }}</p>
+            </li>
+    </ul>
+</body>
