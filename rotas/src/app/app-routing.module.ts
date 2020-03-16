@@ -4,11 +4,15 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { CursosComponent } from './components/cursos/cursos.component';
+import { CursoDetalheComponent } from './components/curso-detalhe/curso-detalhe.component';
+import { NaoEncontradoComponent } from './nao-encontrado/nao-encontrado.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent},
   {path: 'cursos', component: CursosComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'cursos/:id', component: CursoDetalheComponent},
+  {path: 'naoEncontrado', component: NaoEncontradoComponent},
 ];
 
 @NgModule({

@@ -9,10 +9,11 @@
       <a class="brand-logo center">Estudo</a>
       <ul id="nav-mobile" class="left hide-on-med-and-down">
         <li><a  routerLink="/login">Login</a></li>
-        <li><a routerLink="/cursos">Cursos</a></li>
+        <li><a routerLink="cursos" [queryParams]="{pagina:1}" >Cursos</a></li>
         <li><a routerLink="/">Home</a></li>
       </ul>
     </div>
 </nav>
-
+<div class="container">
+</div>
 <router-outlet></router-outlet>
