@@ -9,7 +9,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CursoDetalheComponent } from './components/curso-detalhe/curso-detalhe.component';
 import { FormsModule } from '@angular/forms';
 import { NaoEncontradoComponent } from './nao-encontrado/nao-encontrado.component';
-import { AlunosComponent } from './components/alunos/alunos.component';
 import { AlunosModule } from './components/alunos/alunos.module';
 @NgModule({
   declarations: [
@@ -19,13 +18,13 @@ import { AlunosModule } from './components/alunos/alunos.module';
     LoginComponent,
     CursoDetalheComponent,
     NaoEncontradoComponent,
-    AlunosComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+    AlunosModule
   ],
   providers: [],
   bootstrap: [AppComponent]
