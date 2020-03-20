@@ -9,7 +9,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CursoDetalheComponent } from './components/curso-detalhe/curso-detalhe.component';
 import { FormsModule } from '@angular/forms';
 import { NaoEncontradoComponent } from './nao-encontrado/nao-encontrado.component';
-import { AlunosModule } from './components/alunos/alunos.module';
+import { AuthGuardService } from './components/guards/auth-guard.service';
+import { AlunosGuard } from './components/guards/alunos.guard';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,9 +25,8 @@ import { AlunosModule } from './components/alunos/alunos.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
-    AlunosModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [ AuthGuardService, AlunosGuard],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

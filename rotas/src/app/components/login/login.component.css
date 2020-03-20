@@ -1,0 +1,12 @@
+.container{
+  display: flex;
+  justify-content: center;
+  margin-top:200px;
+}
+.btn{
+  margin-bottom: 12px;
+  margin-left: 12px;
+}
+.card{
+  padding:30px;
+}

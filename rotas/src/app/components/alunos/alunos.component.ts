@@ -18,5 +18,9 @@ export class AlunosComponent implements OnInit {
 
   ngOnInit(): void {
     this.alunos = this.alunosService.getAlunos();
+
+    if (this.alunos === null) {
+      this.alunos = [];
+    }
   }
 }
