@@ -1,1 +1,24 @@
-<p>data-form works!</p>
+<form class="container" [formGroup]='formulario'>
+  <div class="form-group">
+    <label for="formGroupExampleInput">* Nome</label>
+    <input type="text" class="form-control"  id="nome" formControlName="nome"  >
+  </div>
+
+  <div class="form-group">
+    <label for="formGroupExampleInput2">* E-mail</label>
+    <input type="text" class="form-control"  id="email" formControlName="email" >
+    <div>
+      preencher todos os campos com *
+    </div>
+    <br>
+    <button (click)="submit()" type= "submit" class="btn btn-success">Enviar</button>
+    <button type="button" (click)="resetar()" class="btn btn-danger">Cancelar</button>
+
+</div>
+</form>
+<br>
+<div class="jumbotron container ">
+  <h2>Detalhes do Formulário</h2>
+  <p>Nome: {{formulario.value.nome}}</p>
+  <p>Email: {{formulario.value.email}}</p>
+</div>
