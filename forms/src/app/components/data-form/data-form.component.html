@@ -1,22 +1,84 @@
 <form class="container" [formGroup]='formulario'>
-  <div class="form-group">
-    <label for="formGroupExampleInput">* Nome</label>
-    <input type="text" class="form-control" [ngClass]="aplicaCssErro('nome')" id="nome" formControlName="nome"  >
-    <label *ngIf="verificaValidTouched('nome')" class="invalid-feedback">Preencha o nome</label>
-  </div>
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="formGroupExampleInput">* Nome</label>
+        <input type="text" class="form-control" [ngClass]="aplicaCssErro('nome')" id="nome" formControlName="nome"  >
+        <label *ngIf="verificaValidTouched('nome')" class="invalid-feedback">Nome deve ter mais de 3 caracteres.</label>
+      </div>
 
-  <div class="form-group">
-    <label for="formGroupExampleInput2">* E-mail</label>
-    <input type="text" class="form-control" [ngClass]="aplicaCssErro('email')"  id="email" formControlName="email" >
-    <label *ngIf="verificaValidTouched('email')" class="invalid-feedback">Preencha o email</label>
-    <div>
-      preencher todos os campos com *
     </div>
-    <br>
-    <button (click)="submit()" type= "submit" class="btn btn-success">Enviar</button>
-    <button type="button" (click)="resetar()" class="btn btn-danger">Cancelar</button>
-
-</div>
+    <div class="col">
+      <div class="form-group">
+        <label for="formGroupExampleInput2">* E-mail</label>
+        <input type="text" class="form-control" [ngClass]="aplicaCssErro('email')"  id="email" formControlName="email" >
+        <label *ngIf="verificaValidTouched('email')" class="invalid-feedback">Email está vazio ou inválido.</label>
+    </div>
+    </div>
+  </div>
+  <div formGroupName="endereco">
+    <div class="row">
+      <div class="col-4">
+        <div class="form-group">
+          <label for="formGroupExampleInput2">* CEP</label>
+          <input type="text" class="form-control" (blur)="consultaCep($event.target.value)" [ngClass]="aplicaCssErro('endereco.cep')"  id="cep" formControlName="cep" >
+          <label *ngIf="verificaValidTouched('cep')" class="invalid-feedback">Cep está vazio ou inválido.</label>
+      </div>
+      </div>
+      <div class="col-2">
+        <div class="form-group">
+          <label for="formGroupExampleInput2">* Número</label>
+          <input type="text" class="form-control" [ngClass]="aplicaCssErro('endereco.numero')"  id="numero" formControlName="numero" >
+          <label *ngIf="verificaValidTouched('numero')" class="invalid-feedback">Número está vazio</label>
+      </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="formGroupExampleInput2">* Complemento</label>
+          <input type="text" class="form-control" [ngClass]="aplicaCssErro('endereco.complemento')"  id="complemento" formControlName="complemento" >
+          <label *ngIf="verificaValidTouched('complemento')" class="invalid-feedback">Complemento está vazio</label>
+      </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group">
+          <label for="formGroupExampleInput2">* Rua</label>
+          <input type="text" class="form-control" [ngClass]="aplicaCssErro('endereco.rua')"  id="rua" formControlName="rua" >
+          <label *ngIf="verificaValidTouched('rua')" class="invalid-feedback">Rua está vazio</label>
+      </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label for="formGroupExampleInput2">* Bairro</label>
+          <input type="text" class="form-control" [ngClass]="aplicaCssErro('endereco.bairro')"  id="bairro" formControlName="bairro" >
+          <label *ngIf="verificaValidTouched('bairro')" class="invalid-feedback">Bairro está vazio</label>
+      </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="formGroupExampleInput2">* Cidade</label>
+          <input type="text" class="form-control" [ngClass]="aplicaCssErro('endereco.rua')"  id="cidade" formControlName="cidade" >
+          <label *ngIf="verificaValidTouched('cidade')" class="invalid-feedback">cidade está vazio</label>
+      </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="formGroupExampleInput2">* Estado</label>
+          <input type="text" class="form-control" [ngClass]="aplicaCssErro('endereco.estado')"  id="estado" formControlName="estado" >
+          <label *ngIf="verificaValidTouched('rua')" class="invalid-feedback">Estado está vazio</label>
+      </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    preencher todos os campos com *
+  </div>
+  <br>
+  <button (click)="submit()" type= "submit" class="btn btn-success">Enviar</button>
+  <button type="button" (click)="resetar()" class="btn btn-danger">Cancelar</button>
 </form>
 <br>
 <div class="jumbotron container ">

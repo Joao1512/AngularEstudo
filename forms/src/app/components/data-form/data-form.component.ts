@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-data-form',
@@ -20,6 +21,24 @@ export class DataFormComponent implements OnInit {
     this.formulario = this.formBuilder.group({
       nome: [null, [Validators.required, Validators.minLength(3)]],
       email: [null, [Validators.required, Validators.email]],
+
+      endereco: this.formBuilder.group({
+        cep: [null, Validators.required],
+        numero: [null, Validators.required],
+        complemento: [null],
+        rua: [null, Validators.required],
+        bairro: [null, Validators.required],
+        cidade: [null, Validators.required],
+        estado: [null, Validators.required],
+      })
+    });
+  }
+  consultaCep(inputcep){
+    const cep = inputcep.replace(/\D/g, '');
+
+    this.http.get('http://viacep.com.br/ws/' + cep + '/json/')
+    .subscribe(dados =>{
+      console.log(dados);
     });
   }
   submit() {
@@ -33,12 +52,15 @@ export class DataFormComponent implements OnInit {
   resetar() {
     this.formulario.reset();
   }
-  verificaValidTouched(campo) {
+  verificaValidTouched(campo: string) {
     return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
   }
   aplicaCssErro(campo) {
     return{
       'is-invalid': this.verificaValidTouched(campo),
     };
+  }
+  debug(campo){
+    console.log(campo)
   }
 }
