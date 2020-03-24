@@ -60,7 +60,4 @@ export class DataFormComponent implements OnInit {
       'is-invalid': this.verificaValidTouched(campo),
     };
   }
-  debug(campo){
-    console.log(campo)
-  }
 }
