@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -9,21 +9,22 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DataFormComponent implements OnInit {
 
-  formulario: FormGroup;
+
   constructor(
     private formBuilder: FormBuilder,
-    private http: HttpClient) { }
+    private http: HttpClient,
+  ) { }
+  formulario: FormGroup;
 
   ngOnInit(): void {
     this.formulario = this.formBuilder.group({
-      nome: [null],
-      email: [null],
+      nome: [null, [Validators.required, Validators.minLength(3)]],
+      email: [null, [Validators.required, Validators.email]],
     });
   }
   submit() {
-    console.log(this.formulario.value);
     this.http.post('https://httpbin.org/post',
-                    JSON.stringify(this.formulario.value))
+    JSON.stringify(this.formulario.value))
     .subscribe(dados => {
       console.log(dados),
       this.resetar();
@@ -31,5 +32,13 @@ export class DataFormComponent implements OnInit {
   }
   resetar() {
     this.formulario.reset();
+  }
+  verificaValidTouched(campo) {
+    return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
+  }
+  aplicaCssErro(campo) {
+    return{
+      'is-invalid': this.verificaValidTouched(campo),
+    };
   }
 }

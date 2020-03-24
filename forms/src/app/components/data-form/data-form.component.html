@@ -1,12 +1,14 @@
 <form class="container" [formGroup]='formulario'>
   <div class="form-group">
     <label for="formGroupExampleInput">* Nome</label>
-    <input type="text" class="form-control"  id="nome" formControlName="nome"  >
+    <input type="text" class="form-control" [ngClass]="aplicaCssErro('nome')" id="nome" formControlName="nome"  >
+    <label *ngIf="verificaValidTouched('nome')" class="invalid-feedback">Preencha o nome</label>
   </div>
 
   <div class="form-group">
     <label for="formGroupExampleInput2">* E-mail</label>
-    <input type="text" class="form-control"  id="email" formControlName="email" >
+    <input type="text" class="form-control" [ngClass]="aplicaCssErro('email')"  id="email" formControlName="email" >
+    <label *ngIf="verificaValidTouched('email')" class="invalid-feedback">Preencha o email</label>
     <div>
       preencher todos os campos com *
     </div>
