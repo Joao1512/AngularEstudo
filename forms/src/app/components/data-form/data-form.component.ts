@@ -19,9 +19,8 @@ export class DataFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.formulario = this.formBuilder.group({
-      nome: [null, [Validators.required, Validators.minLength(3)]],
+      nome: [null, [Validators.required, Validators.minLength(4)]],
       email: [null, [Validators.required, Validators.email]],
-
       endereco: this.formBuilder.group({
         cep: [null, Validators.required],
         numero: [null, Validators.required],
@@ -33,12 +32,25 @@ export class DataFormComponent implements OnInit {
       })
     });
   }
-  consultaCep(inputcep){
-    const cep = inputcep.replace(/\D/g, '');
-
-    this.http.get('http://viacep.com.br/ws/' + cep + '/json/')
-    .subscribe(dados =>{
-      console.log(dados);
+  consultaCep() {
+    const cep = this.formulario.get('endereco.cep').value;
+    // só faz a busca se o cep estiver preenchido
+    if (cep !== '') {
+      this.http.get('http://viacep.com.br/ws/' + cep + '/json/')
+      .subscribe(dados => {
+        this.populaDadosForm(dados);
+      });
+    }
+  }
+  populaDadosForm(dados) {
+    // patchValue atualiza os dados do formulario
+    this.formulario.patchValue({
+      endereco: {
+        rua: dados.logradouro,
+        bairro: dados.bairro,
+        cidade: dados.localidade,
+        estado: dados.uf,
+      }
     });
   }
   submit() {
@@ -52,7 +64,7 @@ export class DataFormComponent implements OnInit {
   resetar() {
     this.formulario.reset();
   }
-  verificaValidTouched(campo: string) {
+  verificaValidTouched(campo) {
     return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
   }
   aplicaCssErro(campo) {
