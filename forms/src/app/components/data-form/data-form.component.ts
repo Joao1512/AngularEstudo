@@ -1,3 +1,5 @@
+import { ConsultaCepService } from './../../services/consulta-cep.service';
+import { DropdownService } from './../../services/dropdown.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -14,10 +16,13 @@ export class DataFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
+    private dropdownService: DropdownService,
+    private consultaCepService: ConsultaCepService,
   ) { }
   formulario: FormGroup;
 
   ngOnInit(): void {
+    this.dropdownService.getEstadosBr();
     this.formulario = this.formBuilder.group({
       nome: [null, [Validators.required, Validators.minLength(4)]],
       email: [null, [Validators.required, Validators.email]],
@@ -36,10 +41,7 @@ export class DataFormComponent implements OnInit {
     const cep = this.formulario.get('endereco.cep').value;
     // só faz a busca se o cep estiver preenchido
     if (cep !== '') {
-      this.http.get('http://viacep.com.br/ws/' + cep + '/json/')
-      .subscribe(dados => {
-        this.populaDadosForm(dados);
-      });
+      this.consultaCepService.getCep(cep).subscribe(dados => this.populaDadosForm(dados));
     }
   }
   populaDadosForm(dados) {
