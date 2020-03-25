@@ -67,8 +67,12 @@
         <div class="col">
           <div class="form-group">
             <label for="formGroupExampleInput2">* Estado</label>
-            <input type="text" class="form-control" [ngClass]="aplicaCssErro('endereco.estado')"  id="estado" formControlName="estado" >
-            <label *ngIf="verificaValidTouched('endereco.rua')" class="invalid-feedback">Estado está vazio</label>
+            <select class="form-control" formControlName="estado">
+              <option [value]="estado.sigla" *ngFor="let estado of estados" >
+                {{estado.nome}}
+              </option>
+            </select>
+            <label *ngIf="verificaValidTouched('endereco.estado')" class="invalid-feedback">Estado está vazio</label>
         </div>
         </div>
       </div>

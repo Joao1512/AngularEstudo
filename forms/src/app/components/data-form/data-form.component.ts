@@ -20,9 +20,13 @@ export class DataFormComponent implements OnInit {
     private consultaCepService: ConsultaCepService,
   ) { }
   formulario: FormGroup;
+  estados: any;
 
   ngOnInit(): void {
-    this.dropdownService.getEstadosBr();
+    this.dropdownService.getEstadosBr().subscribe(dados =>{
+      this.estados = dados;
+      console.log(this.estados);
+    });
     this.formulario = this.formBuilder.group({
       nome: [null, [Validators.required, Validators.minLength(4)]],
       email: [null, [Validators.required, Validators.email]],

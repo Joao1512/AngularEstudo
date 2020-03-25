@@ -8,10 +8,7 @@ import { subscribeOn } from 'rxjs/operators';
 export class DropdownService {
 
   constructor(private http: HttpClient) { }
-  getEstadosBr(){
-    return this.http.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
-    .subscribe(dados => {
-      console.log(dados);
-    });
+  getEstadosBr() {
+    return this.http.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados');
   }
 }
