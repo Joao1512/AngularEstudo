@@ -14,7 +14,6 @@ export class TemplateFormComponent implements OnInit {
 
   onSubmit(form) {
     console.log(this.usuarios)
-    console.log(form.value);
   }
   constructor() { }
 

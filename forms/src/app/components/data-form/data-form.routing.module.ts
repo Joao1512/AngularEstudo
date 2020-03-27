@@ -12,4 +12,4 @@ const dataFormRoutes: Routes = [
     imports: [RouterModule.forChild(dataFormRoutes)],
     exports: [RouterModule],
 })
-export class TemplateFormRoutingModule {}
+export class TemplateFormRoutingModule { }

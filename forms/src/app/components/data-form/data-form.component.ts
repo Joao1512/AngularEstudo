@@ -1,9 +1,10 @@
+import { formValidations } from './form-validations';
 import { ConsultaCepService } from './../../services/consulta-cep.service';
 import { DropdownService } from './../../services/dropdown.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { CustomValidators } from 'ng2-validation';
 import { HttpClient } from '@angular/common/http';
-import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-data-form',
@@ -21,15 +22,22 @@ export class DataFormComponent implements OnInit {
   ) { }
   formulario: FormGroup;
   estados: any;
-
+  cargos: any [];
+  tecnologias: any [];
+  newsletter: any [];
+  public frameworks: any[];
   ngOnInit(): void {
-    this.dropdownService.getEstadosBr().subscribe(dados =>{
-      this.estados = dados;
-      console.log(this.estados);
-    });
+    this.frameworks = ['Angular', 'React', 'Flutter', 'React Native'];
+    this.buildFrameworks();
+    this.estados = this.dropdownService.getEstadosBr();
+    this.cargos = this.dropdownService.getCargos();
+    this.tecnologias = this.dropdownService.getTecnologias();
+    this.newsletter = this.dropdownService.getNewsLetter();
+
     this.formulario = this.formBuilder.group({
       nome: [null, [Validators.required, Validators.minLength(4)]],
       email: [null, [Validators.required, Validators.email]],
+      confirmaEmail: [null, [Validators.required, CustomValidators.equalTo('email')]],
       endereco: this.formBuilder.group({
         cep: [null, Validators.required],
         numero: [null, Validators.required],
@@ -38,7 +46,12 @@ export class DataFormComponent implements OnInit {
         bairro: [null, Validators.required],
         cidade: [null, Validators.required],
         estado: [null, Validators.required],
-      })
+      }),
+      cargo: [null, Validators.required],
+      tecnologias: [null],
+      newsletter: [null, Validators.required],
+      frameworks: this.buildFrameworks(),
+      termos: [null, Validators.pattern('true')],
     });
   }
   consultaCep() {
@@ -72,7 +85,7 @@ export class DataFormComponent implements OnInit {
       this.verificaValidacoesForm(this.formulario);
     }
   }
-  verificaValidacoesForm(formGroup: FormGroup){
+  verificaValidacoesForm(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(campo => {
       const controle = formGroup.get(campo);
       controle.markAsTouched();
@@ -80,6 +93,14 @@ export class DataFormComponent implements OnInit {
         this.verificaValidacoesForm(controle);
       }
     });
+  }
+  compararCargos(obj1, obj2) {
+    return obj1 && obj2 ? (obj1.nome === obj2.nome && obj1.nivel && obj2.nivel) :  obj1 === obj2;
+  };
+  buildFrameworks() {
+    const values = this.frameworks.map(v => new FormControl(false));
+    console.log(values);
+    return this.formBuilder.array(values, formValidations.requiredMinCheckBox(1));
   }
   resetar() {
     this.formulario.reset();
