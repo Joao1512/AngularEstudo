@@ -1,0 +1,27 @@
+
+<form [formGroup]='formulario'>
+  <div class="container">
+    <div class="row">
+      <div class="col s12">
+        <div class="row ">
+          <div class="input-field col s12 ">
+            <input id="email" type="email" [ngClass]="aplicaCssErro('nome')" formControlName="nome" placeholder="Nome do Curso">
+            <span class="helper-text" data-error="Inválido" data-success="Ok">Novo Curso</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="textarea1" class="materialize-textarea" formControlName="descricao" placeholder="Descrição">
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="btn blue"(click)="onSubmit()">
+          Adicionar
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

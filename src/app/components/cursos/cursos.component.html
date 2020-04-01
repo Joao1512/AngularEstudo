@@ -1,0 +1,19 @@
+<div class="container m-top" >
+    <ul  class="collection with-header">
+      <li class="collection-header"><h1>Cursos</h1></li>
+        <li *ngFor="let curso of cursos"  class="collection-item  blue-text darken-4  ">
+           <a [routerLink]="['/cursos', curso.id]">
+              {{curso.nome}}
+              <br>
+              ID: {{curso.id}}
+           </a>
+          <a class="secondary-content">
+              <i class="material-icons" style="color:#d32f2f;" (click)="deleteCurso(curso.id)">delete</i>       
+              <a class="material-icons" style="color:#263238 ;" [routerLink]="['/cursos', curso.id, 'editar']">edit</a>
+          </a>
+        </li>
+      </ul>
+    <br>
+    <button class="btn  green darken-3" routerLink="/novoCurso">Adicionar Curso</button>
+    <br><br>
+</div>

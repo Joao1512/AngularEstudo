@@ -1,0 +1,22 @@
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+ <body>
+    <nav >
+      <div class="nav-wrapper blue-grey darken-4">
+        <a class="brand-logo center">Estudo</a>
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+          <li><a routerLink="/login">Login</a></li>
+          <li><a routerLink="cursos" [queryParams]="{pagina:1}" >Cursos</a></li>
+          <li><a routerLink="alunos" >Alunos</a></li>
+          <li><a routerLink="" onclick="M.toast({html: 'I am a toast'})">Home</a></li>
+        </ul>
+      </div>
+  </nav>
+  <div class="container">
+  </div>
+  <router-outlet></router-outlet>
+   <!-- Compiled and minified JavaScript -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+</body>

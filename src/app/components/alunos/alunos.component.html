@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="row">
+        <div class="col s6">
+            <h1>Lista de Alunos</h1>
+            <div  class="collection">
+                <a *ngFor="let aluno of alunos"  [routerLink]="[aluno.id]"  class="collection-item  blue-text darken-4  ">
+                    {{aluno.nome}} <br>
+                </a>
+            </div>
+            <button class="btn blue darken4" routerLink="novo">Novo</button>
+        </div>
+        <div class="col s6">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
