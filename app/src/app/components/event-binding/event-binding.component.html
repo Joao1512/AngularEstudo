@@ -1,0 +1,26 @@
+<body>
+    <h2>Event Binding</h2>
+    <div class="border">
+        <h3 align="center">Componente event-binding</h3>
+        {{works}}
+        Mudar Titulo: <input #box (keyup.enter)="onEnter(box.value)"> {{tituloEstudo}}
+        <br>
+        <button (click)="onClick()" class="btn">Click</button> {{clickedMessage}}<br><br>
+        <input (keyup)="onKey($event)"> {{values}}
+        <p 
+            (mouseover)="onMouseOver()"
+            (moseout)="onMouseOver()"
+            [class.highlight] = "mouseOver"
+        >
+          Mouse Over
+        </p>
+            Nome do Curso: <input [(ngModel)]="nomeCurso"/>
+    </div>
+<div class="border">
+    <p >
+        <h3 align="center">Componente Input Property</h3>
+        <app-input-property [nomeCurso] = "nomeCurso"></app-input-property>
+        <br>
+        <app-output-property (mudouValor) = "onValorMudou($event)"></app-output-property>
+</div>
+</body>

@@ -1,0 +1,11 @@
+body{
+    font-family: Roboto;
+}
+.product{
+    border-style: solid;
+    border-radius: 5px;
+    border-color: #222624;
+    border-width:1px;
+    padding: 10px;
+    margin-top:8px;
+}

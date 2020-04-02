@@ -1,0 +1,217 @@
+<html>
+  <h1 class="container" align="center">Cadastro de Funionário</h1>
+  <form class="container" [formGroup]='formulario'>
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label for="formGroupExampleInput">* Nome</label>
+          <input type="text" class="form-control" [ngClass]="aplicaCssErro('nome')" id="nome" formControlName="nome"  >
+          <label *ngIf="verificaValidTouched('nome')" class="invalid-feedback">Nome deve ter mais de 3 caracteres.</label>
+        </div>
+
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="formGroupExampleInput2">* E-mail</label>
+          <input type="text" class="form-control" [ngClass]="aplicaCssErro('email')"  id="email" formControlName="email" >
+          <label *ngIf="verificaValidTouched('email')" class="invalid-feedback">Email está vazio ou inválido.</label>
+      </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label for="formGroupExampleInput2">* Confirmar e-mail</label>
+          <input type="text" class="form-control" [ngClass]="aplicaCssErro('confirmaEmail')"  id="email" formControlName="confirmaEmail" >
+          <label *ngIf="formulario.get('confirmaEmail').errors?.equalTo" class="invalid-feedback">Emails diferentes</label>
+          <label></label>
+      </div>
+      </div>
+    </div>
+    <div formGroupName="endereco">
+      <div class="row">
+        <div class="col-4">
+          <div class="form-group">
+            <label for="formGroupExampleInput2">* CEP</label>
+            <input type="text" class="form-control" (blur)="consultaCep()" [ngClass]="aplicaCssErro('endereco.cep')"  id="cep" formControlName="cep" >
+            <label *ngIf="verificaValidTouched('endereco.cep')" class="invalid-feedback">Cep está vazio ou inválido.</label>
+        </div>
+        </div>
+        <div class="col-2">
+          <div class="form-group">
+            <label for="formGroupExampleInput2">* Número</label>
+            <input type="text" class="form-control" [ngClass]="aplicaCssErro('endereco.numero')"  id="numero" formControlName="numero" >
+            <label *ngIf="verificaValidTouched('endereco.numero')" class="invalid-feedback">Número está vazio</label>
+        </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="formGroupExampleInput2"> Complemento</label>
+            <input type="text" class="form-control" [ngClass]="aplicaCssErro('endereco.complemento')"  id="complemento" formControlName="complemento" >
+        </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="formGroupExampleInput2">* Rua</label>
+            <input type="text" class="form-control" [ngClass]="aplicaCssErro('endereco.rua')"  id="rua" formControlName="rua" >
+            <label *ngIf="verificaValidTouched('endereco.rua')" class="invalid-feedback">Rua está vazio</label>
+        </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="formGroupExampleInput2">* Bairro</label>
+            <input type="text" class="form-control" [ngClass]="aplicaCssErro('endereco.bairro')"  id="bairro" formControlName="bairro" >
+            <label *ngIf="verificaValidTouched('endereco.bairro')" class="invalid-feedback">Bairro está vazio</label>
+        </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="formGroupExampleInput2">* Cidade</label>
+            <input type="text" class="form-control" [ngClass]="aplicaCssErro('endereco.rua')"  id="cidade" formControlName="cidade" >
+            <label *ngIf="verificaValidTouched('endereco.cidade')" class="invalid-feedback">cidade está vazio</label>
+        </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="formGroupExampleInput2">* Estado</label>
+            <select class="form-control" formControlName="estado" [ngClass]="aplicaCssErro('endereco.estado')">
+              <option [value]="estado.sigla" *ngFor="let estado of estados | async" >
+                {{estado.nome}}
+              </option>
+            </select>
+            <label *ngIf="verificaValidTouched('endereco.estado')" class="invalid-feedback">Estado está vazio</label>
+        </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <div class="form-group">
+          <label for="cargo">* Cargo</label>
+          <select class="form-control" [ngClass]="aplicaCssErro('cargo')" formControlName="cargo" [compareWith]="compararCargos">
+            <option [ngValue]="cargo" *ngFor="let cargo of cargos" >
+              {{cargo.nivel}}
+            </option>
+          </select>
+      </div>
+      </div>
+      <div class="col-4">
+        <div class="form-group">
+          <label for="tecnologias" >Tecnologias</label>
+          <select multiple class="form-control" formControlName="tecnologias" >
+            <option [value]="tecnologia.nome" *ngFor="let tecnologia of tecnologias" >
+              {{tecnologia.nome}}
+            </option>
+          </select>
+      </div>
+      </div>
+      <div class="col-4">
+        <div class="form-group" [ngClass]="{'red': verificaValidTouched('newsletter')}" >
+          <label for="newsletter"  >* NewsLetter</label>
+          <br>
+          <div *ngFor="let newsletterss of newsletter"  class="custom-control custom-radio custom-control-inline">
+            <label class="radio-inline" >
+              <input type="radio" [value]="newsletterss.valor" formControlName="newsletter"> {{newsletterss.valor}}
+            </label>
+          </div>
+      </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label>Frameworks</label>
+        <br>
+       <div class="form-check form-check-inline" formArrayName="frameworks" *ngFor="let item of formulario.get('frameworks').controls; let i = index" >
+          <input class="form-check-input" type="checkbox" [formControlName]="i">
+          <label class="form-check-label" for="inlineCheckbox1">{{frameworks[i]}}</label>
+        </div>
+        <br>
+        <div *ngIf="!formulario.get('frameworks').valid" class="red" >
+          escolha ao menos uma opção
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="form-check-inline" [ngClass]="{'red': verificaValidTouched('termos')}" >
+      <input class="form-check-input"  formControlName="termos" type="checkbox">
+      <label class="form-check-label" for="defaultCheck1">
+        Aceito termos
+      </label><br>
+    </div>
+    <label *ngIf="verificaValidTouched('termos')" class="invalid-feedback">Aceite os termos</label>
+    <br>
+    <br>
+    <button (click)="submit()" type= "submit" class="btn btn-success">Enviar</button>
+    <button type="button" (click)="resetar()" class="btn btn-danger">Cancelar</button>
+  </form>
+  <br>
+  <div class="jumbotron container ">
+    <h2>Detalhes do Formulário</h2>
+    <div class="card card-body slabo">
+      <div class="row">
+        <div class="col-4">
+          <p><b>Nome:</b> {{formulario.value.nome}}</p>
+        </div>
+        <div class="col-4">
+          <p><b>Email:</b> {{formulario.value.email}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <p><b>CEP:</b> {{formulario.value.endereco.cep}}</p>
+        </div>
+        <div class="col">
+          <p><b>Número:</b> {{formulario.value.endereco.numero}}</p>
+        </div>
+        <div class="col">
+          <p><b>Complemento:</b> {{formulario.value.endereco.complemento}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <p><b>Rua:</b> {{formulario.value.endereco.rua}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <p><b>Bairro: </b>{{formulario.value.endereco.bairro}}</p>
+        </div>
+        <div class="col">
+          <p><b>Cidade:</b> {{formulario.value.endereco.cidade}}</p>
+        </div>
+        <div class="col">
+          <p><b>Estado:</b> {{formulario.value.endereco.estado}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <p><b>Cargo:</b> {{formulario.value.cargo}}</p>
+        </div>
+        <div class="col-4">
+        <p><b>Tecnologias:</b> {{formulario.value.tecnologias}}</p>
+        </div>
+        <div class="col-4">
+          <p><b>Newsletter:</b> {{formulario.value.newsletter}}</p>
+         </div>
+      </div>
+      <div class="row">
+        <div class="col">
+         <p><b>Frameworks: </b>{{formulario.value.frameworks}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+         <p><b>Termos: </b>{{formulario.value.termos}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</html>
+

@@ -1,0 +1,17 @@
+.top-bar {
+    width: 100%;
+    height: 68px;
+    padding: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #222624;
+  }
+  .brand{
+      color: #ffff;
+      font-weight: 200;
+  }
+  body{
+      font-family: Roboto;
+  }

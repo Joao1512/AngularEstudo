@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Slabo+27px&display=swap');
+
+.container{
+  margin-top: 100px;
+}
+.btn{
+  margin-left:6px;
+}
+.slabo{
+  font-family: 'Slabo 27px', serif;
+}
+.bold{
+  font-weight: bold;
+}
+.red{
+  color: red;
+}

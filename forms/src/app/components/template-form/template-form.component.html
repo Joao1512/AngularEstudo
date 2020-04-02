@@ -1,0 +1,30 @@
+<form #f="ngForm" (ngSubmit)="onSubmit(f)" class="container">
+
+  <div class="form-group">
+    <label for="formGroupExampleInput">* Nome</label>
+    <input type="text" class="form-control" #nome="ngModel" id="nome" name="nome" [(ngModel)]= "usuarios.nome" required>
+    <div *ngIf="nome.touched && !nome.valid"  class="alert alert-danger" role="alert">
+      Preencha o nome
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="formGroupExampleInput2">* E-mail</label>
+    <input type="text" class="form-control" #email ="ngModel" id="email" name="email" [(ngModel)]= "usuarios.email" required>
+    <div *ngIf="email.touched && !email.valid"  class="alert alert-danger" role="alert">
+      Preencha o email
+    </div>
+  </div>
+  <button [class.disabled] = '!email.valid || !nome.valid' type= "submit" class="btn btn-primary">Enviar</button>
+  <div *ngIf="!email.valid || !nome.valid">
+    preencher todos os campos com *
+  </div>
+</form>
+<br>
+<div *ngIf=" nome.touched && email.valid"  class="jumbotron ">
+  <div class="">
+    <h1 class="display-4">Detalhes do Formulário</h1>
+    <p class="lead">Nome: {{usuarios.nome}}</p>
+    <p class="lead">Email: {{usuarios.email}}</p>
+  </div>
+</div>
