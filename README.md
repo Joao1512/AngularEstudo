@@ -1,5 +1,6 @@
-<<<<<<< HEAD
-# Rotas
+## 💻 Projeto
+
+Este repositório foi criado para os estudos do curso de Angular da plataforma loiane.training ( https://loiane.training/curso/angular )
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.6.
 
